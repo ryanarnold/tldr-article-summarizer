@@ -3,6 +3,8 @@ import { Inter } from '@next/font/google';
 import sites from '../data/sites-supported';
 import { useState } from 'react';
 import axios from 'axios';
+import SiteLink from '../components/SiteLink';
+import Button from '../components/Button';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -79,17 +81,9 @@ export default function Home() {
                 value={url}
               />
               {isSummarizing ? (
-                <button
-                  className="bg-indigo-200 text-white rounded-md"
-                  onClick={summarizeArticle}
-                  disabled
-                >
-                  Summarizing...
-                </button>
+                <Button text="Summarizing..." disabled />
               ) : (
-                <button className="bg-indigo-500 text-white rounded-md" onClick={summarizeArticle}>
-                  Summarize
-                </button>
+                <Button text="Summarize" clickHandler={summarizeArticle} />
               )}
             </div>
             <p className="text-slate-500 text-sm float-left">
@@ -97,15 +91,7 @@ export default function Home() {
               {sites.map((site) => {
                 return (
                   <>
-                    <a
-                      href={site.fullurl}
-                      key={site.hostname}
-                      className="underline text-indigo-300"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {site.name}
-                    </a>
+                    <SiteLink site={site} />
                     {sites.findIndex((s) => s.name === site.name) !== sites.length - 1 ? ', ' : ''}
                   </>
                 );
