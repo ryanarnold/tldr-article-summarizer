@@ -35,6 +35,16 @@ export default function Home() {
     setUrl(event.currentTarget.value);
   };
 
+  const generateRandom = () => {
+    let samples: Array<string> = [];
+
+    sites.forEach((site) => {
+      samples = [...site.samples, ...samples];
+    });
+
+    setUrl(samples[Math.floor(Math.random() * samples.length)]);
+  };
+
   return (
     <>
       <Head>
@@ -66,6 +76,7 @@ export default function Home() {
                 id="inputUrl"
                 className="border-solid border-slate-300 border rounded-md p-2 w-full height-full"
                 onChange={handleUrlChange}
+                value={url}
               />
               {isSummarizing ? (
                 <button
@@ -100,8 +111,11 @@ export default function Home() {
                 );
               })}
             </p>
-            <p className="text-slate-500 text-sm text-right hover:underline hover:cursor-pointer">
-              generate random
+            <p
+              className="text-slate-500 text-sm text-right hover:underline hover:cursor-pointer"
+              onClick={generateRandom}
+            >
+              pick random
             </p>
 
             {summaryContent && summaryTitle ? (
