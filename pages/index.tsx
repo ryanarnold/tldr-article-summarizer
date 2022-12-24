@@ -58,7 +58,7 @@ export default function Home() {
           <div></div>
           <div>
             <h1 className="text-6xl font-bold text-center mt-10 mb-5">TL;DR</h1>
-            <p className="text-center mb-10">
+            <p className="text-center mb-10 text-slate-500 text-md">
               Enter the URL of an article to get a short summary courtesy of{' '}
               <a
                 href="https://openai.com/api/"
@@ -118,7 +118,7 @@ export default function Home() {
               pick random
             </p>
 
-            {summaryContent && summaryTitle ? (
+            {summaryContent && summaryTitle && !isSummarizing ? (
               <div className="mt-10 border border-slate-300 rounded-lg p-5">
                 <h1 className="text-3xl font-bold mb-5">
                   <a
