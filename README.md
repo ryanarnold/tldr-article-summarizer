@@ -4,6 +4,8 @@ Live demo: https://tldr.up.railway.app/
 
 **TL;DR** is a simple typescript-based web app that takes a URL of a news article, then spits out a summarized veersion using the GPT-3 API with the `text-davinci-003` model.
 
+![image](https://user-images.githubusercontent.com/18186677/209426410-31507871-f029-4e2c-8d1a-636cae7bd62c.png)
+
 ## Tech Stack
 
 - **Front-end and Back-end**: [Next.js](https://nextjs.org/) using [TypeScript](https://www.typescriptlang.org/)
