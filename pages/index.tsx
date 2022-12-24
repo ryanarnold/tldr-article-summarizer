@@ -48,7 +48,17 @@ export default function Home() {
           <div></div>
           <div>
             <h1 className="text-6xl font-bold text-center mt-10 mb-5">TL;DR</h1>
-            <p className="text-center mb-10">Enter the URL of an article to get a short summary</p>
+            <p className="text-center mb-10">
+              Enter the URL of an article to get a short summary courtesy of{' '}
+              <a
+                href="https://openai.com/api/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-indigo-500 hover:underline"
+              >
+                GPT-3
+              </a>
+            </p>
             <div className="grid grid-cols-[5fr_1fr] mb-2 gap-5">
               <input
                 type="text"
