@@ -6,10 +6,12 @@ const cheerio = require('cheerio');
 type Data = {
   url: string;
   content: string;
+  title: string;
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data | string>) {
   if (req.body.url === undefined) {
+    console.log(req.body);
     res.status(400).send('Missing input url');
   }
 
@@ -34,5 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const $ = cheerio.load(body.data);
   const articleContent = $(currentSite?.query).text();
 
-  res.status(200).json({ url, content: articleContent });
+  const articleTitle = $('meta[property=og:title]').attr('content');
+
+  res.status(200).json({ url, content: articleContent, title: articleTitle });
 }

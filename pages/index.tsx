@@ -1,10 +1,40 @@
 import Head from 'next/head';
 import { Inter } from '@next/font/google';
 import sites from '../data/sites-supported';
+import { useState } from 'react';
+import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const [url, setUrl] = useState('');
+  const [isSummarizing, setIsSummarizing] = useState(false);
+  const [summaryTitle, setSummaryTitle] = useState('');
+  const [summaryContent, setsummaryContent] = useState('');
+
+  const summarizeArticle = async () => {
+    setIsSummarizing(true);
+
+    try {
+      const articleResponse = await axios.post('/api/article', { url });
+      const content = articleResponse.data.content;
+      const title = articleResponse.data.title;
+
+      const summaryResponse = await axios.post('/api/summarize', { content });
+
+      setsummaryContent(summaryResponse.data.summary);
+      setSummaryTitle(title);
+    } catch {
+      alert('Invalid URL!');
+    }
+
+    setIsSummarizing(false);
+  };
+
+  const handleUrlChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setUrl(event.currentTarget.value);
+  };
+
   return (
     <>
       <Head>
@@ -24,11 +54,24 @@ export default function Home() {
                 type="text"
                 name="inputUrl"
                 id="inputUrl"
-                className="border-solid border-slate-400 border rounded-md p-2 w-full height-full"
+                className="border-solid border-slate-300 border rounded-md p-2 w-full height-full"
+                onChange={handleUrlChange}
               />
-              <button className="bg-indigo-500 text-white rounded-md">Summarize</button>
+              {isSummarizing ? (
+                <button
+                  className="bg-indigo-200 text-white rounded-md"
+                  onClick={summarizeArticle}
+                  disabled
+                >
+                  Summarizing...
+                </button>
+              ) : (
+                <button className="bg-indigo-500 text-white rounded-md" onClick={summarizeArticle}>
+                  Summarize
+                </button>
+              )}
             </div>
-            <p className="text-slate-500 text-sm">
+            <p className="text-slate-500 text-sm float-left">
               Supported sites:{' '}
               {sites.map((site) => {
                 return (
@@ -36,7 +79,7 @@ export default function Home() {
                     <a
                       href={site.fullurl}
                       key={site.hostname}
-                      className="underline text-blue-600"
+                      className="underline text-indigo-300"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -47,6 +90,16 @@ export default function Home() {
                 );
               })}
             </p>
+            <p className="text-slate-500 text-sm text-right hover:underline hover:cursor-pointer">
+              generate random
+            </p>
+
+            {summaryContent && summaryTitle ? (
+              <div className="mt-10 border border-slate-300 rounded-lg p-5">
+                <h1 className="text-3xl font-bold mb-5">{summaryTitle}</h1>
+                <p className="text-slate-700">{summaryContent}</p>
+              </div>
+            ) : null}
           </div>
           <div></div>
         </div>
