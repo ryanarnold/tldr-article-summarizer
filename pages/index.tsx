@@ -96,7 +96,16 @@ export default function Home() {
 
             {summaryContent && summaryTitle ? (
               <div className="mt-10 border border-slate-300 rounded-lg p-5">
-                <h1 className="text-3xl font-bold mb-5">{summaryTitle}</h1>
+                <h1 className="text-3xl font-bold mb-5">
+                  <a
+                    href={url}
+                    className="hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {summaryTitle}
+                  </a>
+                </h1>
                 <p className="text-slate-700">{summaryContent}</p>
               </div>
             ) : null}
