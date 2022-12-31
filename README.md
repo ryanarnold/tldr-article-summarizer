@@ -32,10 +32,21 @@ The app exoses 2 backend endpoints:
 
 ## Setup
 
-If you wish to run the web app on your local machine, clone the repository and run the following in the command line
+1. Clone the repository and setup the node environment
 
 ```
 npm install
+```
+
+2. Create a `.env` file and enter you GPT-3 API key
+
+```
+GPT3_API_KEY=[YOUR_KEY_HERE]
+```
+
+3. Run the local server
+
+```
 npm run dev
 ```
 
